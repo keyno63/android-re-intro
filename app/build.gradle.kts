@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "tokyo.maigo_name.first_app"
+        applicationId = "tokyo.maigo_name.android.re.introduction"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
