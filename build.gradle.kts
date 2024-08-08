@@ -8,3 +8,4 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.lifecycle.extensions)
 }
+
