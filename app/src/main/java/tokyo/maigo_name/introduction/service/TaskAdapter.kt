@@ -3,13 +3,15 @@ package tokyo.maigo_name.introduction.service
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import tokyo.maigo_name.introduction.domain.Task
 
 class TaskAdapter(private val taskList: MutableList<Task>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
     class TaskViewHolder(itemVIew: View) : RecyclerView.ViewHolder(itemVIew) {
-        val taskName: TextView = itemView.findViewById(android.R.id.text1)
+        val checkBoxTask: CheckBox = itemView.findViewById(R.id.checkBoxTask)
+        val taskName: TextView = itemView.findViewById(R.id.textViewTask)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -21,6 +23,11 @@ class TaskAdapter(private val taskList: MutableList<Task>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = taskList[position]
         holder.taskName.text = task.name
+        holder.checkBoxTask.isChecked = task.isCompleted
+
+        holder.checkBoxTask.setOnCheckedChangeListener  { _, isChecked ->
+            task.isCompleted = isChecked
+        }
     }
 
     override fun getItemCount() = taskList.size
