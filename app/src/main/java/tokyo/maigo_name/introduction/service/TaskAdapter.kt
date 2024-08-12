@@ -1,31 +1,33 @@
 package tokyo.maigo_name.introduction.service
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import tokyo.maigo_name.introduction.databinding.ItemTaskBinding
 import tokyo.maigo_name.introduction.domain.Task
 
+
 class TaskAdapter(private val taskList: MutableList<Task>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
-    class TaskViewHolder(itemVIew: View) : RecyclerView.ViewHolder(itemVIew) {
-        val checkBoxTask: CheckBox = itemView.findViewById(R.id.checkBoxTask)
-        val taskName: TextView = itemView.findViewById(R.id.textViewTask)
-    }
+
+    private lateinit var binding: ItemTaskBinding
+
+    // ViewHolderクラスでView Bindingを使用
+    class TaskViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(android.R.layout.simple_list_item_1, parent, false)
-        return TaskViewHolder(itemView)
+        // ItemTaskBindingをインフレート
+        val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return TaskViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = taskList[position]
-        holder.taskName.text = task.name
-        holder.checkBoxTask.isChecked = task.isCompleted
+        // Bindingオブジェクトを通じてビューにアクセス
+        holder.binding.textViewTask.text = task.name
+        holder.binding.checkBoxTask.isChecked = task.isCompleted
 
-        holder.checkBoxTask.setOnCheckedChangeListener  { _, isChecked ->
+        // チェックボックスの状態変更リスナー
+        holder.binding.checkBoxTask.setOnCheckedChangeListener { _, isChecked ->
             task.isCompleted = isChecked
         }
     }
