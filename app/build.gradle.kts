@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "tokyo.maigo_name.android.re.introduction"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
