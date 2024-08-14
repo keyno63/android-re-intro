@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.appcompat)
+    implementation("com.airbnb.android:lottie:6.5.0")
+    implementation("com.airbnb.android:lottie-compose:6.5.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
