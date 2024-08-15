@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "tokyo.maigo_name.introduction"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "tokyo.maigo_name.android.re.introduction"
