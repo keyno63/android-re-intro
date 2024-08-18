@@ -8,15 +8,19 @@ import android.view.Menu
 import android.view.MenuItem
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.launch
 import tokyo.maigo_name.introduction.databinding.ActivityTaskBinding
 import tokyo.maigo_name.introduction.domain.Task
+import tokyo.maigo_name.introduction.repository.TaskDatabase
 import tokyo.maigo_name.introduction.service.TaskAdapter
 
 class TaskActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityTaskBinding
     private lateinit var taskAdapter: TaskAdapter
+    private lateinit var taskDatabase: TaskDatabase
     private val taskList = mutableListOf<Task>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +29,9 @@ class TaskActivity: AppCompatActivity() {
         binding = ActivityTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // init database
+        taskDatabase = TaskDatabase.getDatabase(this)
+
         taskAdapter = TaskAdapter(taskList)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = taskAdapter
@@ -32,11 +39,13 @@ class TaskActivity: AppCompatActivity() {
         binding.buttonAdd.setOnClickListener {
             val taskName = binding.editTextTask.text.toString()
             if (!TextUtils.isEmpty(taskName)) {
-                val task = Task(taskName)
-                taskAdapter.addTask(task)
+                val task = Task(name = taskName)
+                saveTask(task)
                 binding.editTextTask.text.clear()
             }
         }
+
+        loadTasks()
     }
 
     // メニューの作成
@@ -51,10 +60,29 @@ class TaskActivity: AppCompatActivity() {
             R.id.action_title -> {
                 // MainActivityを呼び出す
                 val intent = Intent(this, MainActivity::class.java)
+                // 起動済みのMainをもってくる場合
+//                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun saveTask(task: Task) {
+        lifecycleScope.launch {
+            taskDatabase.taskDao().insertTask(task)
+            taskList.add(task)
+            taskAdapter.notifyItemInserted(taskList.size - 1)
+        }
+    }
+
+    private fun loadTasks() {
+        lifecycleScope.launch {
+            val tasks = taskDatabase.taskDao().getAllTasks()
+            taskList.clear()
+            taskList.addAll(tasks)
+            taskAdapter.notifyDataSetChanged()
         }
     }
 
