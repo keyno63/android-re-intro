@@ -69,16 +69,25 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.appcompat)
+
+    // to use animation
     implementation(libs.lottie)
     implementation(libs.lottie.compose)
+
+    // to use database
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+    // to use Kotlin Coroutines
     implementation("androidx.room:room-ktx:2.6.0")
+
+    // test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // debug
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
