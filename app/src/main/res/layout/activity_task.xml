@@ -7,13 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".TaskActivity">
 
-    <Button
-        android:id="@+id/buttonToggleAll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="一括でチェックつける/はずす" />
-
     <EditText
         android:id="@+id/editTextTask"
         android:layout_width="match_parent"
@@ -26,6 +19,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextTask"
         android:text="タスクの追加" />
+
+    <Button
+        android:id="@+id/buttonToggleAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="一括でチェックつける/はずす" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
