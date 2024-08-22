@@ -44,6 +44,7 @@ class TaskActivity: AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = taskAdapter
 
+        // add task
         binding.buttonAdd.setOnClickListener {
             val taskName = binding.editTextTask.text.toString()
             if (!TextUtils.isEmpty(taskName)) {
@@ -70,7 +71,10 @@ class TaskActivity: AppCompatActivity() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // スワイプされたときの処理
-                val position = viewHolder.adapterPosition
+                val position = viewHolder.bindingAdapterPosition
+                val task = taskList[position]
+                task.isDeleted = true
+                updateTask(task)
                 taskAdapter.removeTask(position)
             }
 
@@ -132,6 +136,12 @@ class TaskActivity: AppCompatActivity() {
             taskDatabase.taskDao().insertTask(task)
             taskList.add(task)
             taskAdapter.notifyItemInserted(taskList.size - 1)
+        }
+    }
+
+    private fun updateTask(task: Task) {
+        lifecycleScope.launch {
+            taskDatabase.taskDao().updateTask(task)
         }
     }
 

@@ -11,6 +11,9 @@ interface TaskDao {
     @Delete
     suspend fun deleteTask(task: Task)
 
-    @Query("SELECT * FROM tasks")
+    @Update
+    fun updateTask(task: Task)
+
+    @Query("SELECT * FROM tasks WHERE isDeleted = false")
     suspend fun getAllTasks(): List<Task>
 }
