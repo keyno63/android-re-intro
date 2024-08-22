@@ -12,7 +12,11 @@ android {
         applicationId = "tokyo.maigo_name.android.re.introduction"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
+        versionName = "0.0.5"
+        versionCode = fun(v: String): Int {
+            val parts = v.split(".")
+            return parts[0].toInt() * 10000 + parts[1].toInt() * 100 + parts[2].toInt()
+        }(versionName!!)
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
