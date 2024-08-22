@@ -60,7 +60,11 @@ class TaskActivity: AppCompatActivity() {
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                // ドラッグアンドドロップが必要ない場合はfalseを返す
+                val fromPosition = viewHolder.bindingAdapterPosition
+                val toPosition = target.bindingAdapterPosition
+
+                // タスクの位置を入れ替え
+                taskAdapter.moveTask(fromPosition, toPosition)
                 return false
             }
 
