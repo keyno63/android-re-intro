@@ -32,9 +32,9 @@ abstract class TaskDatabase : RoomDatabase() {
 
         // マイグレーションの実装
         val MIGRATION_1_2 = object : Migration(1, 2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
+            override fun migrate(db: SupportSQLiteDatabase) {
                 // カラムを追加するSQLクエリ
-                database.execSQL("ALTER TABLE tasks ADD COLUMN isDeleted INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE tasks ADD COLUMN isDeleted INTEGER NOT NULL DEFAULT 0")
             }
         }
     }
