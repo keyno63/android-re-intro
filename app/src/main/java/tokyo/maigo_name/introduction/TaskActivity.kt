@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import tokyo.maigo_name.introduction.databinding.ActivityTaskBinding
 import tokyo.maigo_name.introduction.domain.Task
@@ -140,7 +141,7 @@ class TaskActivity: AppCompatActivity() {
     }
 
     private fun updateTask(task: Task) {
-        lifecycleScope.launch {
+        GlobalScope.launch {
             taskDatabase.taskDao().updateTask(task)
         }
     }
