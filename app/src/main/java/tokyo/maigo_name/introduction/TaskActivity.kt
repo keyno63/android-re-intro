@@ -23,6 +23,9 @@ class TaskActivity: AppCompatActivity() {
     private lateinit var taskDatabase: TaskDatabase
     private val taskList = mutableListOf<Task>()
 
+    // manage check status
+    private var isAllChecked = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,6 +46,12 @@ class TaskActivity: AppCompatActivity() {
                 saveTask(task)
                 binding.editTextTask.text.clear()
             }
+        }
+
+        // all checked ON/OFF
+        binding.buttonToggleAll.setOnClickListener {
+            isAllChecked = !isAllChecked // toggle to state
+            taskAdapter.toggleAllTasks(isAllChecked) // all change check state
         }
 
         loadTasks()

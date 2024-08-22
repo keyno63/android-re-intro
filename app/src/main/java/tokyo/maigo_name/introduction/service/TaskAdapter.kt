@@ -43,4 +43,11 @@ class TaskAdapter(private val taskList: MutableList<Task>) : RecyclerView.Adapte
         taskList.removeAt(position)
         notifyItemRemoved(position)
     }
+
+    fun toggleAllTasks(isChecked: Boolean) {
+        for (task in taskList) {
+            task.isCompleted = isChecked
+        }
+        notifyDataSetChanged() // リスト全体を更新0
+    }
 }
