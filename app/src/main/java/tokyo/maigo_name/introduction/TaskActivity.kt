@@ -3,13 +3,18 @@ package tokyo.maigo_name.introduction
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import tokyo.maigo_name.introduction.databinding.ActivityTaskBinding
 import tokyo.maigo_name.introduction.domain.Task
@@ -48,11 +53,51 @@ class TaskActivity: AppCompatActivity() {
             }
         }
 
+        // ItemTouchHelperの設定
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                // ドラッグアンドドロップが必要ない場合はfalseを返す
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                // スワイプされたときの処理
+                val position = viewHolder.adapterPosition
+                taskAdapter.removeTask(position)
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val background = ColorDrawable(Color.RED)
+                background.setBounds(
+                    viewHolder.itemView.left, viewHolder.itemView.top,
+                    viewHolder.itemView.right, viewHolder.itemView.bottom
+                )
+                background.draw(c)
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            }
+        }
+
         // all checked ON/OFF
         binding.buttonToggleAll.setOnClickListener {
             isAllChecked = !isAllChecked // toggle to state
             taskAdapter.toggleAllTasks(isAllChecked) // all change check state
         }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
         loadTasks()
     }
