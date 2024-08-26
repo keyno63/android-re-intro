@@ -80,6 +80,7 @@ dependencies {
 
     // to use database
     implementation(libs.androidx.room.runtime)
+    implementation(libs.material)
     ksp(libs.androidx.room.compiler)
     // to use Kotlin Coroutines
     implementation(libs.androidx.room.ktx)

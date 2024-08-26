@@ -1,6 +1,7 @@
 package tokyo.maigo_name.introduction
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
@@ -10,6 +11,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.text.TextUtils
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import tokyo.maigo_name.introduction.databinding.ActivityTaskBinding
+import tokyo.maigo_name.introduction.databinding.DialogAddTaskBinding
 import tokyo.maigo_name.introduction.domain.Task
 import tokyo.maigo_name.introduction.repository.TaskDatabase
 import tokyo.maigo_name.introduction.service.TaskAdapter
@@ -53,6 +56,11 @@ class TaskActivity: AppCompatActivity() {
                 saveTask(task)
                 binding.editTextTask.text.clear()
             }
+        }
+
+        // click FAB button
+        binding.fab.setOnClickListener {
+            showAddTaskDialog()
         }
 
         // ItemTouchHelperの設定
@@ -130,6 +138,31 @@ class TaskActivity: AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showAddTaskDialog() {
+        // ダイアログのレイアウトをインフレート
+        val dialogBinding = DialogAddTaskBinding.inflate(LayoutInflater.from(this))
+
+        // ダイアログを作成
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("タスクを追加")
+            .setView(dialogBinding.root)
+            .setPositiveButton("追加") { _, _ ->
+                val taskName = dialogBinding.editTextTaskName.text.toString()
+                if (taskName.isNotEmpty()) {
+                    val taskName = binding.editTextTask.text.toString()
+                    if (!TextUtils.isEmpty(taskName)) {
+                        val task = Task(name = taskName)
+                        saveTask(task)
+                        binding.editTextTask.text.clear()
+                    }
+                }
+            }
+            .setNegativeButton("キャンセル", null)
+            .create()
+
+        dialog.show()
     }
 
     private fun saveTask(task: Task) {
