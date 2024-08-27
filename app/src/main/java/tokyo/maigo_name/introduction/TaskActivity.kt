@@ -141,11 +141,10 @@ class TaskActivity: AppCompatActivity() {
             .setPositiveButton("追加") { _, _ ->
                 val taskName = dialogBinding.editTextTaskName.text.toString()
                 if (taskName.isNotEmpty()) {
-                    val taskName = binding.editTextTask.text.toString()
                     if (!TextUtils.isEmpty(taskName)) {
                         val task = Task(name = taskName)
                         saveTask(task)
-                        binding.editTextTask.text.clear()
+                        dialogBinding.editTextTaskName.text.clear()
                     }
                 }
             }
