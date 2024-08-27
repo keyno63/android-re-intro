@@ -48,16 +48,6 @@ class TaskActivity: AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = taskAdapter
 
-        // add task
-        binding.buttonAdd.setOnClickListener {
-            val taskName = binding.editTextTask.text.toString()
-            if (!TextUtils.isEmpty(taskName)) {
-                val task = Task(name = taskName)
-                saveTask(task)
-                binding.editTextTask.text.clear()
-            }
-        }
-
         // click FAB button
         binding.fab.setOnClickListener {
             showAddTaskDialog()
