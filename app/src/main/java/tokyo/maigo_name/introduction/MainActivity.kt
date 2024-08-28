@@ -2,6 +2,7 @@ package tokyo.maigo_name.introduction
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import tokyo.maigo_name.introduction.databinding.ActivityMainBinding
@@ -23,6 +24,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
+        binding.animationView.setOnClickListener{
+            val intent = Intent(this, TaskActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            }
+            startActivity(intent)
+        }
     }
 
     fun start() {
