@@ -12,7 +12,7 @@ android {
         applicationId = "tokyo.maigo_name.android.re.introduction"
         minSdk = 30
         targetSdk = 34
-        versionName = "0.0.9"
+        versionName = "0.1.0"
         versionCode = fun(v: String): Int {
             val parts = v.split(".")
             return parts[0].toInt() * 10000 + parts[1].toInt() * 100 + parts[2].toInt()
