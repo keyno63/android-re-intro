@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity() {
             }
         )
         binding.animationView.setOnClickListener{
+            // complete animation
+            binding.animationView.progress = 1.0f
+            binding.animationView.pauseAnimation()
+
             val intent = Intent(this, TaskActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             }
