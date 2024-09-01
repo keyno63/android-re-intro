@@ -178,7 +178,6 @@ class TaskActivity: AppCompatActivity() {
     }
 
     companion object {
-        @JvmStatic
         fun start(activity: Activity) {
             val intent = createIntent(activity)
             activity.startActivity(intent)
