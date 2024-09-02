@@ -106,6 +106,33 @@ class TaskActivity: AppCompatActivity() {
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
+        // menu bar
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.navigation_home -> {
+                    // todo function
+                    true
+                }
+                R.id.navigation_done -> {
+                    // todo function
+                    true
+                }
+                R.id.navigation_trash -> {
+                    // todo function
+                    true
+                }
+                R.id.navigation_notifications -> {
+                    // todo function
+                    true
+                }
+                R.id.navigation_profile -> {
+                    // todo function
+                    true
+                }
+                else -> false
+            }
+        }
+
         loadTasks()
     }
 

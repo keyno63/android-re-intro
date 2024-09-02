@@ -3,4 +3,9 @@
     <string name="task_edit">タスクの入力</string>
     <string name="task_add">タスクの追加</string>
     <string name="task_check_all">一括でチェックつける/はずす</string>
+    <string name="menu_home">ホーム</string>
+    <string name="menu_done">完了タスク</string>
+    <string name="menu_trash">削除したタスク</string>
+    <string name="menu_info">通知</string>
+    <string name="menu_profile">プロフィール</string>
 </resources>
