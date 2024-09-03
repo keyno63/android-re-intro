@@ -62,6 +62,7 @@
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
         app:itemTextColor="#EFE7E7"
+        app:itemIconTint="@color/bottom_nav_icon_color"
         app:menu="@menu/bottom_nav_menu"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
